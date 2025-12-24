@@ -3,40 +3,11 @@
 import { useState, useCallback } from 'react';
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Server, ChevronDown, Database, Settings } from 'lucide-react';
-
-const skillsData = [
-  {
-    title: "Backend Development",
-    icon: Server,
-    description: [
-      "Building scalable and maintainable backend systems using Java & Spring Boot",
-      "Designing and implementing secure RESTful APIs with Spring Security",
-      "Utilizing Spring Data JPA and Hibernate for efficient data persistence",
-      "Implementing workflow engines and business process automation"
-    ]
-  },
-  {
-    title: "Databases & Data Management",
-    icon: Database,
-    description: [
-      "Proficient in MySQL, PostgreSQL, and Oracle for relational database management",
-      "Using Liquibase for version-controlled database schema migrations",
-      "Writing complex SQL and PL/SQL queries for data manipulation and retrieval",
-      "Experience with database design and optimization"
-    ]
-  },
-  {
-    title: "Software Architecture",
-    icon: Settings,
-    description: [
-      "Applying OOP, SOLID principles, and design patterns for clean code",
-      "Implementing Event-Driven Architecture with RabbitMQ and ActiveMQ",
-      "Experience with API design and documentation using Swagger/OpenAPI",
-      "Microservices architecture and CI/CD pipeline management with Jenkins"
-    ]
-  }
-] as const;
+import { ChevronDown } from 'lucide-react';
+import { aboutSkills, aboutIcons } from "@/data/about";
+import { SectionContainer } from "@/shared/components/section-container";
+import { SectionHeader } from "@/shared/components/section-header";
+import { getIconComponent } from "@/shared/utils/icon-resolver";
 
 export function AboutSection() {
   const [openSkill, setOpenSkill] = useState<number | null>(null);
@@ -46,21 +17,12 @@ export function AboutSection() {
   }, []);
 
   return (
-    <section id="about" className="py-16 md:py-24 px-6 lg:px-8">
+    <SectionContainer id="about" spacing="mobile">
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <motion.div 
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            About Me
-          </h2>
-          <div className="w-16 h-px bg-gradient-to-r from-primary to-transparent mx-auto mb-6"></div>
-        </motion.div>
+        <SectionHeader
+          title="About Me"
+          className="mb-12"
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* About Me Content */}
@@ -129,8 +91,10 @@ export function AboutSection() {
               </h3>
             </div>
             
-            {skillsData.map((skill, index) => {
-              const Icon = skill.icon;
+            {aboutSkills.map((skill, index) => {
+              const IconComponent = getIconComponent(skill.icon, aboutIcons);
+              if (!IconComponent) return null;
+              
               return (
                 <motion.div
                   key={skill.title}
@@ -146,7 +110,7 @@ export function AboutSection() {
                     >
                     <div className="flex items-center gap-3 md:gap-4">
                       <div className="w-8 h-8 md:w-10 md:h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <Icon className="w-4 h-4 md:w-6 md:h-6 text-primary" />
+                        <IconComponent className="w-4 h-4 md:w-6 md:h-6 text-primary" />
                       </div>
                       <h4 className="text-lg md:text-xl font-semibold text-white group-hover:text-primary transition-colors">
                         {skill.title}
@@ -189,6 +153,6 @@ export function AboutSection() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </SectionContainer>
   );
 }

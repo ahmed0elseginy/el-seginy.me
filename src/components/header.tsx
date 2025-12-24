@@ -1,34 +1,19 @@
 "use client";
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import Link from "next/link";
-import { Briefcase, GraduationCap, Mails, FolderGit2, Zap, Menu } from "lucide-react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { Menu } from "lucide-react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
-
-const navLinks = [
-  { href: "#home", label: "Overview", icon: Zap },
-  { href: "#about", label: "About", icon: Briefcase },
-  { href: "#skills", label: "Skills", icon: FolderGit2 },
-  { href: "#projects", label: "Projects", icon: FolderGit2 },
-  { href: "#education", label: "Education", icon: GraduationCap },
-  { href: "#experience", label: "Experience", icon: Briefcase },
-  { href: "#contact", label: "Contact", icon: Mails },
-] as const;
+import { navLinks, navIcons } from "@/data/navigation";
+import { getIconComponent } from "@/shared/utils/icon-resolver";
+import { useScrollHeader } from "@/shared/hooks/use-scroll-header";
 
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
+  const scrolled = useScrollHeader(50);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
-
-  const handleScrollChange = useCallback((latest: number) => {
-    setScrolled(latest > 50);
-  }, []);
-
-  useMotionValueEvent(scrollY, "change", handleScrollChange);
 
   return (
     <motion.header 
@@ -45,7 +30,9 @@ export function Header() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-2">
           {navLinks.map((link, index) => {
-            const Icon = link.icon;
+            const IconComponent = getIconComponent(link.icon, navIcons);
+            if (!IconComponent) return null;
+            
             return (
               <motion.div
                 key={link.href}
@@ -60,7 +47,7 @@ export function Header() {
                   className="text-white/80 hover:text-primary hover:bg-transparent transition-all duration-300 relative"
                 >
                   <Link href={link.href} className="flex items-center gap-2 relative group">
-                    <Icon className="w-4 h-4" />
+                    <IconComponent className="w-4 h-4" />
                     {link.label}
                     {link.href === "#home" && (
                       <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary"></div>
@@ -95,7 +82,9 @@ export function Header() {
               <div className="mt-8 space-y-1">
                 {/* Navigation Links */}
                 {navLinks.map((link) => {
-                  const Icon = link.icon;
+                  const IconComponent = getIconComponent(link.icon, navIcons);
+                  if (!IconComponent) return null;
+                  
                   return (
                     <Button
                       key={link.href}
@@ -105,7 +94,7 @@ export function Header() {
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <Link href={link.href} className="flex items-center gap-4 py-4 px-2 text-base">
-                        <Icon className="w-6 h-6 flex-shrink-0" />
+                        <IconComponent className="w-6 h-6 flex-shrink-0" />
                         <span className="font-medium">{link.label}</span>
                       </Link>
                     </Button>

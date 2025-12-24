@@ -1,72 +1,29 @@
 "use client";
 
-import { Briefcase, Rocket, BookOpen, School, Zap, Building, Users, Code2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
-const experiences = [
-  {
-    date: "May 2025 - Present",
-    status: "Current",
-    title: "Software Engineer Intern",
-    company: "ZagSystems",
-    location: "Remote",
-    description: "Designing and implementing workflow engine modules to support business processes while learning scalable system architecture.",
-    achievements: ["Workflow Engine Development", "CI/CD with Jenkins", "System Architecture"],
-    type: "Internship",
-    icon: Briefcase
-  },
-  {
-    date: "Sep 2024 - Aug 2025",
-    status: "Completed",
-    title: "Java with Spring Mentorship",
-    company: "ZagSystems",
-    location: "Remote",
-    description: "Gained hands-on mentorship in Spring Boot, Microservices, and Event-Driven Architecture while building real-world applications.",
-    achievements: ["Spring Boot Mastery", "RESTful APIs", "Social Media Platform"],
-    type: "Mentorship",
-    icon: Rocket
-  },
-  {
-    date: "Jun 2024 - Jan 2025",
-    status: "Completed",
-    title: "Spring Boot Bootcamp",
-    company: "Online Learning",
-    location: "Remote",
-    description: "Built sample applications with Spring Boot & MySQL, practicing JWT authentication and modular project structuring.",
-    achievements: ["Spring Boot & MySQL", "JWT Authentication", "Clean Architecture"],
-    type: "Education",
-    icon: BookOpen
-  },
-];
+import { experiences, experienceIcons } from "@/data/experience";
+import { SectionContainer } from "@/shared/components/section-container";
+import { SectionHeader } from "@/shared/components/section-header";
+import { getIconComponent } from "@/shared/utils/icon-resolver";
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="py-16 md:py-24 px-6 lg:px-8">
+    <SectionContainer id="experience" spacing="mobile">
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <motion.div 
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Professional Experience
-          </h2>
-          <div className="w-16 h-px bg-gradient-to-r from-primary to-transparent mx-auto mb-6"></div>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            My professional journey in software development, showcasing growth 
-            through internships, mentorship, and hands-on learning experiences.
-          </p>
-        </motion.div>
+        <SectionHeader
+          title="Professional Experience"
+          description="My professional journey in software development, showcasing growth through internships, mentorship, and hands-on learning experiences."
+          className="mb-12"
+        />
 
         {/* Experience Timeline */}
         <div className="space-y-8">
           {experiences.map((exp, index) => {
-            const Icon = exp.icon;
+            const IconComponent = getIconComponent(exp.icon, experienceIcons);
+            if (!IconComponent) return null;
+            
             return (
               <motion.div
                 key={index}
@@ -81,7 +38,7 @@ export function ExperienceSection() {
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <Icon className="w-6 h-6 text-primary" />
+                          <IconComponent className="w-6 h-6 text-primary" />
                         </div>
                         <div>
                           <Badge 
@@ -158,6 +115,6 @@ export function ExperienceSection() {
           </p>
         </motion.div>
       </div>
-    </section>
+    </SectionContainer>
   );
 }

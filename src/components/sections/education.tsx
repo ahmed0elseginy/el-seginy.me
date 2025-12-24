@@ -1,61 +1,31 @@
 "use client";
 
-import { GraduationCap, BookOpen, Award, Users, Code, Lightbulb } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
-const education = [
-  {
-    date: "Nov 2024 - Present",
-    status: "Current",
-    title: "B.S.E. in Information and Communications Technology (ICT)",
-    institution: "New Cairo Technological University (NCTU)",
-    subtitle: "Faculty of Industrial and Energy Technology",
-    description: "Currently pursuing advanced coursework in software engineering and system design, focusing on scalable architecture and enterprise solutions.",
-    achievements: ["ICT Student", "Software Engineering", "System Design"],
-    icon: GraduationCap,
-    grade: "In Progress"
-  },
-  {
-    date: "Oct 2020 - Jun 2024",
-    status: "Completed",
-    title: "High School Diploma, Computer Programming",
-    institution: "Misr International Computer & AI Academy | MICA",
-    subtitle: "Computer Science Track",
-    description: "Mastered Java programming fundamentals with distinction, explored Oracle Database development and PL/SQL programming, and participated in coding competitions.",
-    achievements: ["Java Foundation", "Oracle Database", "High Distinction"],
-    icon: Code,
-    grade: "95.67%"
-  },
-];
+import { education, educationIcons } from "@/data/education";
+import { SectionContainer } from "@/shared/components/section-container";
+import { SectionHeader } from "@/shared/components/section-header";
+import { getIconComponent } from "@/shared/utils/icon-resolver";
 
 export function EducationSection() {
   return (
-    <section id="education" className="py-16 md:py-24 px-6 lg:px-8">
+    <SectionContainer id="education" spacing="mobile">
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <motion.div 
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Education
-          </h2>
-          <div className="w-16 h-px bg-gradient-to-r from-primary to-transparent mx-auto mb-6"></div>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            My educational journey in technology and software development, 
-            building a strong foundation for my career.
-          </p>
-        </motion.div>
+        <SectionHeader
+          title="Education"
+          description="My educational journey in technology and software development, building a strong foundation for my career."
+          className="mb-12"
+        />
 
         {/* Education Timeline */}
         <div className="space-y-8">
           {education.map((edu, index) => {
-            const Icon = edu.icon;
+            // Use first icon for now, can be extended later
+            const IconComponent = educationIcons.GraduationCap;
+            const status = index === 0 ? "Current" : "Completed";
+            const grade = index === 0 ? "In Progress" : "95.67%";
+            
             return (
               <motion.div
                 key={index}
@@ -70,35 +40,35 @@ export function EducationSection() {
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <Icon className="w-6 h-6 text-primary" />
+                          <IconComponent className="w-6 h-6 text-primary" />
                         </div>
                         <div>
                           <Badge 
-                            variant={edu.status === "Current" ? "default" : "secondary"}
+                            variant={status === "Current" ? "default" : "secondary"}
                             className={`text-xs ${
-                              edu.status === "Current" 
+                              status === "Current" 
                                 ? "bg-primary text-black" 
                                 : "bg-secondary/10 text-secondary border-secondary/20"
                             }`}
                           >
-                            {edu.status}
+                            {status}
                           </Badge>
                           <p className="text-sm text-gray-400 mt-1">{edu.date}</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-medium text-primary">{edu.grade}</p>
+                        <p className="text-sm font-medium text-primary">{grade}</p>
                       </div>
                     </div>
                     
                     <CardTitle className="text-xl font-bold text-white mb-2">
-                      {edu.title}
+                      {edu.degree}
                     </CardTitle>
                     <CardDescription className="text-primary font-medium text-base">
                       {edu.institution}
                     </CardDescription>
                     <p className="text-sm text-gray-400 mt-1">
-                      {edu.subtitle}
+                      {edu.location}
                     </p>
                   </CardHeader>
 
@@ -145,6 +115,6 @@ export function EducationSection() {
           </p>
         </motion.div>
       </div>
-    </section>
+    </SectionContainer>
   );
 }
