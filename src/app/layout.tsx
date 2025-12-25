@@ -38,10 +38,10 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://el-seginy.me'),
   title: {
-    default: 'Ahmed El-Seginy | Java Backend Developer & Software Engineer',
+    default: 'Ahmed El-Seginy | Full Stack Developer & Software Engineer',
     template: '%s | Ahmed El-Seginy'
   },
-  description: 'Portfolio of Ahmed El-Seginy, a passionate Java backend developer with 3+ years of experience building scalable enterprise applications using Spring Boot, PostgreSQL, and modern software architecture.',
+  description: 'Portfolio of Ahmed El-Seginy, a passionate full stack developer building scalable enterprise applications using Spring Boot, Next.js, PostgreSQL, and modern software architecture.',
   keywords: [
     'Ahmed El-Seginy',
     'Software Developer',
@@ -81,8 +81,8 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: '/',
     siteName: 'Ahmed El-Seginy Portfolio',
-    title: 'Ahmed El-Seginy | Java Backend Developer & Software Engineer',
-    description: 'Portfolio of Ahmed El-Seginy, a passionate Java backend developer with 3+ years of experience building scalable enterprise applications using Spring Boot, PostgreSQL, and modern software architecture.',
+    title: 'Ahmed El-Seginy | Full Stack Developer & Software Engineer',
+    description: 'Portfolio of Ahmed El-Seginy, a passionate full stack developer building scalable enterprise applications using Spring Boot, Next.js, PostgreSQL, and modern software architecture.',
     images: [
       {
         url: '/images/WhatsApp Image 2025-09-08 at 04.31.41_b3b480d2.jpg',
@@ -94,8 +94,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ahmed El-Seginy | Java Backend Developer & Software Engineer',
-    description: 'Portfolio of Ahmed El-Seginy, a passionate Java backend developer with 3+ years of experience building scalable enterprise applications.',
+    title: 'Ahmed El-Seginy | Software Engineer',
+    description: 'Portfolio of Ahmed El-Seginy, a passionate Software Engineer building scalable enterprise applications using Spring Boot, Next.js, and modern software architecture.',
     creator: '@ahmed0elseginy',
     images: ['/images/WhatsApp Image 2025-09-08 at 04.31.41_b3b480d2.jpg'],
   },
