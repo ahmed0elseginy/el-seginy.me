@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { THEME_GRADIENT } from "@/config/constants";
 
 export function Footer() {
-  const currentYear = 2025;
+  const currentYear = new Date().getFullYear();
   
   const socialLinks = [
     {
