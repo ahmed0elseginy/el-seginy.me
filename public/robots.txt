@@ -1,0 +1,13 @@
+# robots.txt for el-seginy.me
+
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://el-seginy.me/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
