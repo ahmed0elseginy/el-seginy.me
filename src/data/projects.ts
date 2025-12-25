@@ -22,7 +22,11 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/ahmed0elseginy/luisi-backend",
     liveUrl: "#",
     icon: "Globe",
-    category: "Full Stack"
+    category: "Full Stack",
+    preview: {
+      type: "image",
+      url: "https://picsum.photos/800/400?random=1" // Placeholder - replace with actual preview
+    }
   },
   {
     id: 2,
@@ -34,7 +38,11 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/ahmed0elseginy/sm-backend",
     liveUrl: "#",
     icon: "Database",
-    category: "Backend"
+    category: "Backend",
+    preview: {
+      type: "image",
+      url: "https://picsum.photos/800/400?random=2" // Placeholder - replace with actual preview
+    }
   },
   {
     id: 3,
@@ -46,7 +54,11 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/ahmed0elseginy/user-mgt-antibug-team",
     liveUrl: "#",
     icon: "Shield",
-    category: "Backend"
+    category: "Backend",
+    preview: {
+      type: "image",
+      url: "https://picsum.photos/800/400?random=3" // Placeholder - replace with actual preview
+    }
   },
   {
     id: 4,
@@ -58,7 +70,11 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/ahmed0elseginy/toda-backend",
     liveUrl: "#",
     icon: "Code",
-    category: "Backend"
+    category: "Backend",
+    preview: {
+      type: "image",
+      url: "https://picsum.photos/800/400?random=4" // Placeholder - replace with actual preview
+    }
   },
   {
     id: 5,
@@ -70,7 +86,11 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/ahmed0elseginy/Amazon-El8alaba",
     liveUrl: "#",
     icon: "Zap",
-    category: "Full Stack"
+    category: "Full Stack",
+    preview: {
+      type: "image",
+      url: "https://picsum.photos/800/400?random=5" // Placeholder - replace with actual preview
+    }
   },
   {
     id: 6,
@@ -82,7 +102,12 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/ahmed0elseginy/t-tech",
     liveUrl: "https://t-tech-tau.vercel.app/",
     icon: "Sparkles",
-    category: "Frontend"
+    category: "Frontend",
+    preview: {
+      type: "video",
+      url: "5192068-uhd_2160_4096_25fps.mp4", // Placeholder video - replace with actual preview
+      thumbnail: "https://picsum.photos/800/400?random=6" // Optional thumbnail for video
+    }
   }
 ];
 

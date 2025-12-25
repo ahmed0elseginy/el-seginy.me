@@ -3,35 +3,33 @@
 import Link from "next/link";
 import { Github, Linkedin, Mail, Heart, Code } from "lucide-react";
 import { motion } from "framer-motion";
+import { THEME_GRADIENT } from "@/config/constants";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2025;
   
   const socialLinks = [
     {
       href: "https://github.com/ahmed0elseginy",
       label: "GitHub",
       icon: Github,
-      color: "hover:text-primary"
     },
     {
       href: "https://linkedin.com/in/ahmed0elseginy",
       label: "LinkedIn", 
       icon: Linkedin,
-      color: "hover:text-secondary"
     },
     {
       href: "mailto:ahmed0elseginy@gmail.com",
       label: "Email",
       icon: Mail,
-      color: "hover:text-primary"
     }
   ];
 
   return (
-    <footer className="relative w-full py-8 md:py-12 px-4 md:px-6 lg:px-8 bg-black/50 backdrop-blur-sm border-t border-primary/20">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+    <footer className="relative w-full py-8 md:py-12 px-4 md:px-6 lg:px-8 border-t border-white/[0.08]">
+      {/* Gradient accent bar at top */}
+      <div className={`absolute top-0 left-0 right-0 h-px bg-gradient-to-r ${THEME_GRADIENT}`} />
       
       <div className="relative max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
@@ -45,14 +43,20 @@ export function Footer() {
             viewport={{ once: true }}
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                <Code className="w-4 h-4 text-primary" />
-              </div>
+              <motion.div 
+                className={`w-8 h-8 rounded-xl bg-gradient-to-br ${THEME_GRADIENT} p-[1px]`}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                <div className="w-full h-full bg-[#0d0d0d] rounded-[11px] flex items-center justify-center">
+                  <Code className="w-4 h-4 text-white" />
+                </div>
+              </motion.div>
               <h3 className="text-xl md:text-2xl font-bold text-white">
                 Ahmed El-Seginy
               </h3>
             </div>
-            <p className="text-sm md:text-base text-gray-400">
+            <p className="text-sm md:text-base text-gray-500">
               Java Backend Developer • Cairo, Egypt
             </p>
           </motion.div>
@@ -70,23 +74,25 @@ export function Footer() {
               {socialLinks.map((social, index) => {
                 const Icon = social.icon;
                 return (
-                  <motion.div
+                  <motion.a
                     key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4, delay: 0.1 * index }}
                     viewport={{ once: true }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative group"
+                    aria-label={social.label}
                   >
-                    <Link 
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`w-12 h-12 inline-flex items-center justify-center border border-gray-600 rounded-full text-gray-400 ${social.color} transition-all duration-300 hover:scale-110`}
-                      aria-label={social.label}
-                    >
+                    <div className={`absolute -inset-0.5 bg-gradient-to-r ${THEME_GRADIENT} rounded-full blur opacity-0 group-hover:opacity-30 transition-opacity duration-300`} />
+                    <div className="relative w-12 h-12 inline-flex items-center justify-center bg-white/[0.03] border border-white/[0.08] rounded-full text-gray-400 hover:text-white hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-200">
                       <Icon className="w-5 h-5" />
-                    </Link>
-                  </motion.div>
+                    </div>
+                  </motion.a>
                 );
               })}
             </div>
@@ -94,24 +100,21 @@ export function Footer() {
             {/* Copyright */}
             <div className="text-center md:text-right text-xs md:text-sm text-gray-500">
               <p className="flex items-center justify-center md:justify-end gap-1 flex-wrap">
-                © {currentYear} Ahmed El-Seginy. Built with 
-                <Heart className="w-3 h-3 md:w-4 md:h-4 text-primary fill-current mx-1" />
-                and modern technologies.
-              </p>
+                © {currentYear} Ahmed El-Seginy.</p>
             </div>
           </motion.div>
         </div>
 
         {/* Bottom decoration line */}
         <motion.div 
-          className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-primary/10"
+          className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-white/[0.08]"
           initial={{ opacity: 0, scaleX: 0 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
         >
           <div className="text-center">
-            <p className="text-xs text-gray-600 italic">
+            <p className="text-xs text-gray-500 italic">
               "Code is like humor. When you have to explain it, it's bad." - Cory House
             </p>
           </div>

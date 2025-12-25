@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Github, Sparkles, ArrowUpRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { projects, projectIcons } from "@/data/projects";
 import { CATEGORY_COLORS, THEME_GRADIENT } from "@/config/constants";
 import { SectionContainer } from "@/shared/components/section-container";
@@ -14,13 +14,46 @@ import type { Project } from "@/types";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const IconComponent = getIconComponent(project.icon, projectIcons);
   const colors = CATEGORY_COLORS[project.category] || CATEGORY_COLORS["Backend"];
+  
+  // Auto-play video when it comes into view
+  useEffect(() => {
+    if (project.preview?.type === "video" && videoRef.current) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              videoRef.current?.play().catch(() => {
+                // Autoplay was prevented, ignore
+              });
+            } else {
+              videoRef.current?.pause();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      if (cardRef.current) {
+        observer.observe(cardRef.current);
+      }
+
+      return () => {
+        if (cardRef.current) {
+          observer.unobserve(cardRef.current);
+        }
+      };
+    }
+  }, [project.preview]);
   
   if (!IconComponent) return null;
 
   return (
     <motion.div
+      ref={cardRef}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
@@ -39,6 +72,47 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         
         {/* Top gradient accent bar */}
         <div className={`h-1 w-full bg-gradient-to-r ${THEME_GRADIENT}`} />
+        
+        {/* Preview Section - Video or Image */}
+        {project.preview && (
+          <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-[#0a0a0a] to-[#0d0d0d]">
+            {project.preview.type === "video" ? (
+              <video
+                ref={videoRef}
+                src={project.preview.url}
+                poster={project.preview.thumbnail}
+                className="w-full h-full object-cover"
+                loop
+                muted
+                playsInline
+                autoPlay
+                preload="auto"
+                onMouseEnter={async () => {
+                  if (videoRef.current) {
+                    try {
+                      await videoRef.current.play();
+                    } catch (error) {
+                      // Autoplay was prevented, ignore
+                    }
+                  }
+                }}
+                onMouseLeave={() => {
+                  // Keep playing on mouse leave, don't pause
+                }}
+              />
+            ) : (
+              <img
+                src={project.preview.url}
+                alt={`${project.title} preview`}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            )}
+            {/* Overlay gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent opacity-60 pointer-events-none" />
+            {/* Hover overlay effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#ff6b35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          </div>
+        )}
         
         {/* Decorative corner elements */}
         <div className="absolute top-4 right-4 w-20 h-20 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-500">

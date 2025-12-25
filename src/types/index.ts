@@ -13,6 +13,11 @@ export interface Project {
   liveUrl: string;
   icon: string; // Icon name from lucide-react
   category: ProjectCategory;
+  preview?: {
+    type: "image" | "video";
+    url: string;
+    thumbnail?: string; // Optional thumbnail for videos
+  };
 }
 
 export interface Skill {

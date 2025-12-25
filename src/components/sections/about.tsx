@@ -2,12 +2,12 @@
 
 import { useState, useCallback } from 'react';
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
 import { ChevronDown } from 'lucide-react';
 import { aboutSkills, aboutIcons } from "@/data/about";
 import { SectionContainer } from "@/shared/components/section-container";
 import { SectionHeader } from "@/shared/components/section-header";
 import { getIconComponent } from "@/shared/utils/icon-resolver";
+import { THEME_GRADIENT } from "@/config/constants";
 
 export function AboutSection() {
   const [openSkill, setOpenSkill] = useState<number | null>(null);
@@ -34,46 +34,54 @@ export function AboutSection() {
             viewport={{ once: true }}
           >
             {/* Main Speech Card */}
-            <Card className="bg-black/50 border-primary/20 backdrop-blur-sm">
-              <CardContent className="p-8">
-                <div className="space-y-6">
-                  {/* Speech Bubble */}
-                  <div className="relative">
-                    <div className="absolute -left-4 top-4 w-0 h-0 border-t-8 border-b-8 border-r-8 border-transparent border-r-primary/20"></div>
-                    <blockquote className="text-lg md:text-xl text-gray-200 leading-relaxed italic">
+            <div className="relative group">
+              {/* Animated glow effect */}
+              <div className={`absolute -inset-0.5 bg-gradient-to-r ${THEME_GRADIENT} rounded-2xl blur-lg opacity-0 group-hover:opacity-40 transition-all duration-500`} />
+              
+              <div className="relative bg-gradient-to-br from-[#0d0d0d] via-[#111111] to-[#0a0a0a] rounded-2xl border border-white/[0.08] overflow-hidden">
+                {/* Top gradient accent bar */}
+                <div className={`h-1 w-full bg-gradient-to-r ${THEME_GRADIENT}`} />
+                
+                <div className="p-8">
+                  <div className="space-y-6">
+                    {/* Speech Bubble */}
+                    <blockquote className="text-lg md:text-xl text-gray-300 leading-relaxed italic">
                       "I'm a passionate Java backend developer with 3+ years of experience building 
                       scalable enterprise applications. I love crafting clean, efficient code that 
                       solves real-world problems."
                     </blockquote>
-                  </div>
 
-                  {/* Key Points */}
-                  <div className="space-y-6 mt-8">
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-primary">My Approach</h3>
-                      <ul className="space-y-2 text-gray-300">
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                          Test-driven development
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                          Clean architecture principles
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                          Agile methodology
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                          Continuous learning
-                        </li>
-                      </ul>
+                    {/* Key Points */}
+                    <div className="space-y-6 mt-8">
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${THEME_GRADIENT}`} />
+                          <h3 className="text-lg font-semibold text-white">My Approach</h3>
+                        </div>
+                        <ul className="space-y-3 text-gray-400">
+                          <li className="flex items-center gap-3">
+                            <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${THEME_GRADIENT}`} />
+                            Test-driven development
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${THEME_GRADIENT}`} />
+                            Clean architecture principles
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${THEME_GRADIENT}`} />
+                            Agile methodology
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${THEME_GRADIENT}`} />
+                            Continuous learning
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </motion.div>
 
           {/* What I Do Section */}
@@ -98,55 +106,69 @@ export function AboutSection() {
               return (
                 <motion.div
                   key={skill.title}
-                  className="bg-black/50 backdrop-blur-sm border border-primary/20 rounded-xl overflow-hidden shadow-lg"
+                  className="relative group"
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.02, duration: 0.25, ease: "easeOut" }}
                   viewport={{ once: true }}
                 >
+                  {/* Animated glow effect */}
+                  <div className={`absolute -inset-0.5 bg-gradient-to-r ${THEME_GRADIENT} rounded-2xl blur-lg opacity-0 group-hover:opacity-40 transition-all duration-500`} />
+                  
+                  <div className="relative bg-gradient-to-br from-[#0d0d0d] via-[#111111] to-[#0a0a0a] rounded-2xl border border-white/[0.08] overflow-hidden">
+                    {/* Top gradient accent bar */}
+                    <div className={`h-1 w-full bg-gradient-to-r ${THEME_GRADIENT}`} />
+                    
                     <button
                       onClick={() => toggleSkill(index)}
-                      className="w-full p-4 md:p-6 flex items-center justify-between text-left group hover:bg-primary/5 transition-colors"
+                      className="w-full p-4 md:p-6 flex items-center justify-between text-left group"
                     >
-                    <div className="flex items-center gap-3 md:gap-4">
-                      <div className="w-8 h-8 md:w-10 md:h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <IconComponent className="w-4 h-4 md:w-6 md:h-6 text-primary" />
+                      <div className="flex items-center gap-3 md:gap-4">
+                        <motion.div 
+                          className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${THEME_GRADIENT} p-[1px] shadow-lg`}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          transition={{ type: "spring", stiffness: 400 }}
+                        >
+                          <div className="w-full h-full bg-[#0d0d0d] rounded-[11px] flex items-center justify-center">
+                            <IconComponent className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                          </div>
+                        </motion.div>
+                        <h4 className="text-lg md:text-xl font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">
+                          {skill.title}
+                        </h4>
                       </div>
-                      <h4 className="text-lg md:text-xl font-semibold text-white group-hover:text-primary transition-colors">
-                        {skill.title}
-                      </h4>
-                    </div>
+                      <motion.div
+                        animate={{ rotate: openSkill === index ? 180 : 0 }}
+                        transition={{ duration: 0.15, ease: "easeInOut" }}
+                      >
+                        <ChevronDown className="w-4 h-4 md:w-5 md:h-5 text-gray-400 group-hover:text-white transition-colors" />
+                      </motion.div>
+                    </button>
+                    
                     <motion.div
-                      animate={{ rotate: openSkill === index ? 180 : 0 }}
-                      transition={{ duration: 0.15, ease: "easeInOut" }}
+                      id={`skill-content-${index}`}
+                      initial={false}
+                      animate={{ 
+                        height: openSkill === index ? "auto" : 0,
+                        opacity: openSkill === index ? 1 : 0
+                      }}
+                      transition={{ 
+                        duration: 0.2, 
+                        ease: "easeInOut",
+                        opacity: { duration: 0.15 }
+                      }}
+                      className="overflow-hidden"
                     >
-                      <ChevronDown className="w-4 h-4 md:w-5 md:h-5 text-gray-400 group-hover:text-primary transition-colors" />
+                      <div className="px-4 md:px-6 pb-4 md:pb-6 space-y-3">
+                        {skill.description.map((desc, descIndex) => (
+                          <div key={descIndex} className="flex items-start gap-3">
+                            <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${THEME_GRADIENT} mt-2 flex-shrink-0`}></div>
+                            <p className="text-gray-400 text-sm md:text-base leading-relaxed">{desc}</p>
+                          </div>
+                        ))}
+                      </div>
                     </motion.div>
-                  </button>
-                  
-                  <motion.div
-                    id={`skill-content-${index}`}
-                    initial={false}
-                    animate={{ 
-                      height: openSkill === index ? "auto" : 0,
-                      opacity: openSkill === index ? 1 : 0
-                    }}
-                    transition={{ 
-                      duration: 0.2, 
-                      ease: "easeInOut",
-                      opacity: { duration: 0.15 }
-                    }}
-                    className="overflow-hidden"
-                  >
-                    <div className="p-4 md:p-6 pt-0 space-y-2 md:space-y-3">
-                      {skill.description.map((desc, descIndex) => (
-                        <div key={descIndex} className="flex items-start gap-3">
-                          <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-gray-300 text-sm md:text-base leading-relaxed">{desc}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
+                  </div>
                 </motion.div>
               );
             })}
