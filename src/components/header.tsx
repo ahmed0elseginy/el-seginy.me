@@ -114,15 +114,23 @@ export function Header() {
                   className={`transition-all duration-200 relative rounded-lg px-4 py-2 ${
                     activeSection === link.href.replace("#", "")
                       ? "text-white"
-                      : "text-gray-400 hover:text-white hover:bg-white/[0.05]"
+                      : "text-gray-300 hover:text-white hover:bg-white/[0.05]"
                   }`}
                 >
                   <Link href={link.href} className="flex items-center gap-2 relative group">
-                    <IconComponent className="w-4 h-4" />
-                    <span>{link.label}</span>
+                    <IconComponent className={`w-4 h-4 transition-colors ${
+                      activeSection === link.href.replace("#", "")
+                        ? "text-white"
+                        : "text-gray-300 group-hover:text-white"
+                    }`} />
+                    <span className={`font-medium ${
+                      activeSection === link.href.replace("#", "")
+                        ? "text-white drop-shadow-sm"
+                        : "text-gray-300 group-hover:text-white group-hover:drop-shadow-sm"
+                    }`}>{link.label}</span>
                     {activeSection === link.href.replace("#", "") && (
                       <motion.div 
-                        className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r ${THEME_GRADIENT} rounded-full`}
+                        className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r ${THEME_GRADIENT} rounded-full shadow-sm`}
                         layoutId="activeTab"
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
@@ -142,9 +150,9 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className={`text-gray-400 hover:text-white z-50 rounded-lg transition-all duration-300 ${
+                className={`text-gray-300 hover:text-white z-50 rounded-lg transition-all duration-300 ${
                   scrolled
-                    ? 'h-12 w-12 min-h-[48px] min-w-[48px] bg-gradient-to-br from-[#0d0d0d]/95 via-[#111111]/95 to-[#0a0a0a]/95 backdrop-blur-md border border-white/[0.1] shadow-lg hover:bg-white/[0.1]'
+                    ? 'h-12 w-12 min-h-[48px] min-w-[48px] bg-gradient-to-br from-[#0d0d0d]/95 via-[#111111]/95 to-[#0a0a0a]/95 backdrop-blur-md border border-white/[0.1] shadow-lg hover:bg-white/[0.1] hover:border-white/[0.15]'
                     : 'h-11 w-11 min-h-[44px] min-w-[44px] hover:bg-white/[0.05]'
                 }`}
                 aria-label="Open navigation menu"
@@ -186,7 +194,7 @@ export function Header() {
                           className={`w-full justify-start relative rounded-lg transition-all duration-200 h-auto min-h-[52px] group ${
                             isActive
                               ? 'bg-white/[0.08] text-white'
-                              : 'text-gray-400 hover:text-white hover:bg-white/[0.05]'
+                              : 'text-gray-300 hover:text-white hover:bg-white/[0.05]'
                           }`}
                           onClick={() => setMobileMenuOpen(false)}
                         >
@@ -197,10 +205,12 @@ export function Header() {
                                 : 'bg-white/[0.05] group-hover:bg-white/[0.1]'
                             }`}>
                               <IconComponent className={`w-5 h-5 flex-shrink-0 transition-colors ${
-                                isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'
+                                isActive ? 'text-white' : 'text-gray-300 group-hover:text-white'
                               }`} />
                             </div>
-                            <span className="flex-1">{link.label}</span>
+                            <span className={`flex-1 ${
+                              isActive ? 'text-white drop-shadow-sm' : 'text-gray-300 group-hover:text-white group-hover:drop-shadow-sm'
+                            }`}>{link.label}</span>
                             {isActive && (
                               <motion.div 
                                 className={`absolute right-4 w-1.5 h-6 bg-gradient-to-b ${THEME_GRADIENT} rounded-full`}
