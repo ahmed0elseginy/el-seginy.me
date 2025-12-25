@@ -1,7 +1,46 @@
 @import "tailwindcss";
 
 html {
+  /* Smooth scrolling only on desktop for better mobile performance */
   scroll-behavior: smooth;
+}
+
+/* Mobile menu close button styling */
+[data-radix-dialog-content] button[class*="absolute right-4 top-4"] {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.5rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  transition: all 0.2s !important;
+}
+
+[data-radix-dialog-content] button[class*="absolute right-4 top-4"]:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Improve mobile scrolling performance */
+@media (max-width: 768px) {
+  /* Disable smooth scrolling on mobile for better performance */
+  html {
+    scroll-behavior: auto;
+  }
+  
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* Improve touch scrolling performance */
+  * {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
 }
 
 @layer base {
@@ -53,6 +92,13 @@ html {
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
+  }
+
+  /* Fix background-attachment on mobile for better scrolling performance */
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+    }
   }
 
   /* Custom Scrollbar Styling */
