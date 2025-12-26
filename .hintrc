@@ -11,6 +11,7 @@
           "scrollbar-color"
         ]
       }
-    ]
+    ],
+    "apple-touch-icons": "off"
   }
 }
