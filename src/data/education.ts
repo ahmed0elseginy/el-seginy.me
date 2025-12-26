@@ -64,22 +64,7 @@ export const education: Education[] = [
       // "/images/education/mica-photo-1.jpg",
       // "/images/education/mica-photo-2.jpg",
     ],
-    certificates: [
-      {
-        name: "Java Foundation",
-        issuer: "Oracle",
-        date: "2023",
-        // credentialUrl: "https://...",
-        // image: "/images/education/java-certificate.jpg",
-      },
-      {
-        name: "Oracle Database Development",
-        issuer: "Oracle",
-        date: "2023",
-        // credentialUrl: "https://...",
-        // image: "/images/education/oracle-certificate.jpg",
-      },
-    ],
+    certificates: [],
     volunteering: [],
   },
 ];

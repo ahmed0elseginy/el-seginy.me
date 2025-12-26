@@ -173,7 +173,7 @@ export function EducationSection() {
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="group relative flex-shrink-0 w-[280px] sm:w-[320px] rounded-xl overflow-hidden cursor-pointer"
+                                    className="group relative flex-1 min-w-[280px] sm:min-w-[320px] rounded-xl overflow-hidden cursor-pointer"
                                   >
                                     {/* Photo Container - Horizontal 16:9 */}
                                     <div className="relative aspect-[16/10] overflow-hidden">
@@ -281,23 +281,39 @@ export function EducationSection() {
                                 <ImageIcon className="w-3.5 h-3.5" />
                                 <span>Memories</span>
                               </div>
-                              <div className="grid grid-cols-3 gap-2">
-                                {edu.photos.map((photo, i) => (
-                                  <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: i * 0.05 }}
-                                    className="relative aspect-video rounded-lg overflow-hidden bg-white/[0.03] border border-white/[0.04] cursor-pointer hover:border-white/[0.1] transition-colors"
-                                  >
-                                    <Image
-                                      src={photo}
-                                      alt={`${edu.institution} photo ${i + 1}`}
-                                      fill
-                                      className="object-cover hover:scale-105 transition-transform duration-300"
-                                    />
-                                  </motion.div>
-                                ))}
+                              <div className={`grid gap-2 ${
+                                edu.institution.includes("MICA") 
+                                  ? "grid-cols-3" 
+                                  : "grid-cols-3"
+                              }`}>
+                                {edu.photos.map((photo, i) => {
+                                  const isMICA = edu.institution.includes("MICA");
+                                  const isFirstPhoto = i === 0;
+                                  const colSpan = isMICA 
+                                    ? (isFirstPhoto ? "col-span-3" : "col-span-2")
+                                    : "col-span-1";
+                                  
+                                  return (
+                                    <motion.div
+                                      key={i}
+                                      initial={{ opacity: 0, scale: 0.9 }}
+                                      animate={{ opacity: 1, scale: 1 }}
+                                      transition={{ delay: i * 0.05 }}
+                                      className={`relative ${colSpan} ${
+                                        isMICA && isFirstPhoto 
+                                          ? "aspect-[21/9]" 
+                                          : "aspect-video"
+                                      } rounded-lg overflow-hidden bg-white/[0.03] border border-white/[0.04] cursor-pointer hover:border-white/[0.1] transition-colors`}
+                                    >
+                                      <Image
+                                        src={photo}
+                                        alt={`${edu.institution} photo ${i + 1}`}
+                                        fill
+                                        className="object-cover hover:scale-105 transition-transform duration-300"
+                                      />
+                                    </motion.div>
+                                  );
+                                })}
                               </div>
                             </div>
                           )}

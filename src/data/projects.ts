@@ -25,7 +25,7 @@ export const projects: Project[] = [
     category: "Full Stack",
     preview: {
       type: "image",
-      url: "https://picsum.photos/800/400?random=1" // Placeholder - replace with actual preview
+      url: "/images/projects/luisi/luisi.png" // Placeholder - replace with actual preview
     }
   },
   {
@@ -42,7 +42,7 @@ export const projects: Project[] = [
     category: "Backend",
     preview: {
       type: "image",
-      url: "https://picsum.photos/800/400?random=2" // Placeholder - replace with actual preview
+      url: "/images/projects/sm/sm0.png"
     }
   },
   {
