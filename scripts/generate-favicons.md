@@ -4,7 +4,7 @@ To create optimized favicon files from your photo, you can use one of these meth
 
 ## Option 1: Online Tool (Easiest)
 1. Visit https://realfavicongenerator.net/
-2. Upload your photo: `public/images/WhatsApp Image 2025-09-08 at 04.31.41_b3b480d2.jpg`
+2. Upload your photo: `public/images/me.jpg`
 3. Configure settings:
    - iOS: Enable all sizes
    - Android Chrome: Enable
@@ -24,11 +24,11 @@ To create optimized favicon files from your photo, you can use one of these meth
 cd /home/hazex01/Documents/GitHub/me-workspace/el-seginy.me
 
 # Create optimized favicon sizes
-convert "public/images/WhatsApp Image 2025-09-08 at 04.31.41_b3b480d2.jpg" -resize 32x32 public/favicon-32x32.png
-convert "public/images/WhatsApp Image 2025-09-08 at 04.31.41_b3b480d2.jpg" -resize 16x16 public/favicon-16x16.png
-convert "public/images/WhatsApp Image 2025-09-08 at 04.31.41_b3b480d2.jpg" -resize 192x192 public/android-chrome-192x192.png
-convert "public/images/WhatsApp Image 2025-09-08 at 04.31.41_b3b480d2.jpg" -resize 512x512 public/android-chrome-512x512.png
-convert "public/images/WhatsApp Image 2025-09-08 at 04.31.41_b3b480d2.jpg" -resize 180x180 public/apple-touch-icon.png
+convert "public/images/me.jpg" -resize 32x32 public/favicon-32x32.png
+convert "public/images/me.jpg" -resize 16x16 public/favicon-16x16.png
+convert "public/images/me.jpg" -resize 192x192 public/android-chrome-192x192.png
+convert "public/images/me.jpg" -resize 512x512 public/android-chrome-512x512.png
+convert "public/images/me.jpg" -resize 180x180 public/apple-touch-icon.png
 
 # Create ICO file (requires additional tools)
 # Or use online converter: https://convertio.co/png-ico/

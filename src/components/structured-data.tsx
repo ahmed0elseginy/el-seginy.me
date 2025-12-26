@@ -11,7 +11,7 @@ export function StructuredData() {
     "jobTitle": "Software Engineer",
     "description": "Passionate Java backend developer with 3+ years of experience building scalable enterprise applications using Spring Boot, PostgreSQL, and modern software architecture.",
     "url": baseUrl,
-    "image": `${baseUrl}/images/WhatsApp Image 2025-09-08 at 04.31.41_b3b480d2.jpg`,
+    "image": `${baseUrl}/images/me.jpg`,
     "sameAs": [
       "https://github.com/ahmed0elseginy",
       "https://linkedin.com/in/ahmed0elseginy",

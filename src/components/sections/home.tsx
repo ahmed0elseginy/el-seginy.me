@@ -33,7 +33,7 @@ export function HomeSection() {
                 <div className={`relative w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden bg-gradient-to-r ${THEME_GRADIENT} p-1`}>
                   <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-[#0d0d0d] via-[#111111] to-[#0a0a0a]">
                     <Image
-                      src="/images/WhatsApp Image 2025-09-08 at 04.31.41_b3b480d2.jpg"
+                      src="/images/me.jpg"
                       alt="Ahmed El-Seginy - Java Software Developer"
                       width={400}
                       height={400}

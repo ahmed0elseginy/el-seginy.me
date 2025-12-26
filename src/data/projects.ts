@@ -89,7 +89,7 @@ export const projects: Project[] = [
     category: "Frontend",
     preview: {
       type: "image",
-      url: "/images/t-tech.png",
+      url: "/images/projects/t-tech.png",
     }
   },
   {
@@ -106,7 +106,7 @@ export const projects: Project[] = [
     preview: {
       type: "video",
       url: "/videos/verdia.webm",
-      thumbnail: "/images/verdia.png"
+      thumbnail: "/images/projects/verdia.png"
     }
   }
 
