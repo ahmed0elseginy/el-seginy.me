@@ -34,18 +34,18 @@ export const education: Education[] = [
     ],
     volunteering: [
       {
-        name: "Microsoft Student Community (MSC)",
-        role: "Vice Backend Ambassador",
+        name: "Microsoft Student Clubs (NCTU)",
+        role: "Co-Leader of Backend Team",
         date: "2024 - Present",
         description: "Leading backend development initiatives, mentoring students in Java and Spring Boot, organizing technical workshops.",
-        logo: "/images/education/msc-logo.png",
+        image: "/images/education/msc.png",
       },
       {
         name: "Google Developer Groups (GDG)",
         role: "Organizer",
         date: "2024 - Present",
         description: "Organizing tech events, workshops, and hackathons. Building developer community and promoting Google technologies.",
-        logo: "/images/education/gdg-logo.png",
+        image: "/images/education/GDG.png",
       },
     ],
   },

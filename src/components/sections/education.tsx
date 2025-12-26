@@ -157,46 +157,78 @@ export function EducationSection() {
                         className="overflow-hidden"
                       >
                         <div className="px-5 pb-5 pt-2 space-y-5 border-t border-white/[0.04]">
-                          {/* Volunteering & Clubs */}
+                          {/* Clubs & Activities - LinkedIn Gallery Style */}
                           {edu.volunteering && edu.volunteering.length > 0 && (
-                            <div className="space-y-3">
+                            <div className="space-y-4">
                               <div className="flex items-center gap-2 text-xs font-medium text-gray-500">
                                 <Users className="w-3.5 h-3.5" />
                                 <span>Clubs & Activities</span>
                               </div>
-                              <div className="grid gap-2">
+                              
+                              {/* LinkedIn-style Horizontal Gallery */}
+                              <div className="flex gap-4 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
                                 {edu.volunteering.map((vol, i) => (
                                   <motion.div
                                     key={i}
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors"
+                                    className="group relative flex-shrink-0 w-[280px] sm:w-[320px] rounded-xl overflow-hidden cursor-pointer"
                                   >
-                                    {vol.logo ? (
-                                      <div className="w-10 h-10 rounded-md overflow-hidden bg-white/[0.05] border border-white/[0.06] flex items-center justify-center flex-shrink-0">
-                                        <Image
-                                          src={vol.logo}
-                                          alt={vol.name}
-                                          width={40}
-                                          height={40}
-                                          className="object-contain p-1"
-                                        />
+                                    {/* Photo Container - Horizontal 16:9 */}
+                                    <div className="relative aspect-[16/10] overflow-hidden">
+                                      {vol.image ? (
+                                        <>
+                                          <Image
+                                            src={vol.image}
+                                            alt={`${vol.name} - ${vol.role}`}
+                                            fill
+                                            className="object-cover object-[center_80%] transition-transform duration-500 group-hover:scale-105"
+                                          />
+                                          {/* Gradient overlay for text readability */}
+                                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                                        </>
+                                      ) : (
+                                        <div className={`w-full h-full bg-gradient-to-br ${THEME_GRADIENT} flex items-center justify-center`}>
+                                          <Users className="w-12 h-12 text-white/60" />
+                                        </div>
+                                      )}
+                                      
+                                      {/* Content Overlay */}
+                                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                                        {/* Role Badge */}
+                                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-2">
+                                          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                                          <span className="text-[10px] font-semibold text-white uppercase tracking-wider">
+                                            {vol.role}
+                                          </span>
+                                        </div>
+                                        
+                                        {/* Organization Name */}
+                                        <h4 className="text-base font-bold text-white mb-1 line-clamp-1">
+                                          {vol.name}
+                                        </h4>
+                                        
+                                        {/* Date */}
+                                        <div className="flex items-center gap-1.5 text-xs text-white/70">
+                                          <Calendar className="w-3 h-3" />
+                                          <span>{vol.date}</span>
+                                        </div>
+                                        
+                                        {/* Description on hover */}
+                                        {vol.description && (
+                                          <motion.p 
+                                            initial={{ opacity: 0, height: 0 }}
+                                            whileHover={{ opacity: 1, height: "auto" }}
+                                            className="text-xs text-white/60 mt-2 line-clamp-2 hidden group-hover:block"
+                                          >
+                                            {vol.description}
+                                          </motion.p>
+                                        )}
                                       </div>
-                                    ) : (
-                                      <div className={`w-10 h-10 rounded-md bg-gradient-to-br ${THEME_GRADIENT} flex items-center justify-center flex-shrink-0`}>
-                                        <Users className="w-4 h-4 text-white" />
-                                      </div>
-                                    )}
-                                    <div className="flex-1 min-w-0">
-                                      <div className="flex items-center gap-2">
-                                        <span className="text-sm font-medium text-white">{vol.role}</span>
-                                        <span className="text-xs text-gray-500">•</span>
-                                        <span className="text-xs text-gray-500">{vol.date}</span>
-                                      </div>
-                                      <p className="text-xs text-transparent bg-clip-text bg-gradient-to-r from-[#ff6b35] to-[#4ecdc4]">
-                                        {vol.name}
-                                      </p>
+                                      
+                                      {/* Hover border effect */}
+                                      <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-white/20 transition-colors duration-300" />
                                     </div>
                                   </motion.div>
                                 ))}

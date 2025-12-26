@@ -146,6 +146,16 @@ html {
 }
 
 @layer utilities {
+  /* Hide scrollbar for horizontal galleries */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   .shiny-text {
     background: linear-gradient(90deg, var(--primary), #ffffff, var(--secondary));
     background-size: 200% auto;

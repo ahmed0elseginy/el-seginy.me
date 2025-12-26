@@ -61,7 +61,7 @@ export interface VolunteeringClub {
   role: string;
   date: string;
   description?: string;
-  logo?: string;
+  image?: string; // Personal branding photo (you at events, speaking, etc.)
 }
 
 export interface Education {
