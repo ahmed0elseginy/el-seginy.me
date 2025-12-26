@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { Github, Sparkles, ArrowUpRight } from "lucide-react";
+import { Github, Sparkles, ArrowUpRight, ExternalLink } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { projects, projectIcons } from "@/data/projects";
 import { CATEGORY_COLORS, THEME_GRADIENT } from "@/config/constants";
@@ -11,13 +11,22 @@ import { SectionContainer } from "@/shared/components/section-container";
 import { SectionHeader } from "@/shared/components/section-header";
 import { getIconComponent } from "@/shared/utils/icon-resolver";
 import type { Project } from "@/types";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const IconComponent = getIconComponent(project.icon, projectIcons);
   const colors = CATEGORY_COLORS[project.category] || CATEGORY_COLORS["Backend"];
+  const hasLiveUrl = project.liveUrl && project.liveUrl !== "#";
   
   // Auto-play video when it comes into view
   useEffect(() => {
@@ -75,7 +84,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         
         {/* Preview Section - Video or Image */}
         {project.preview && (
-          <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-[#0a0a0a] to-[#0d0d0d]">
+          <div 
+            className={`relative w-full h-48 overflow-hidden bg-gradient-to-br from-[#0a0a0a] to-[#0d0d0d] ${hasLiveUrl ? 'cursor-pointer' : ''}`}
+            onClick={() => hasLiveUrl && setIsPreviewOpen(true)}
+          >
             {project.preview.type === "video" ? (
               <video
                 ref={videoRef}
@@ -111,6 +123,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent opacity-60 pointer-events-none" />
             {/* Hover overlay effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#ff6b35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            
+            {/* Click to preview overlay */}
+            {hasLiveUrl && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <div className="flex items-center gap-2 px-4 py-2 bg-[#0d0d0d]/90 border border-white/20 rounded-lg backdrop-blur-sm">
+                  <ExternalLink className="w-4 h-4 text-white" />
+                  <span className="text-sm font-medium text-white">View Website</span>
+                </div>
+              </div>
+            )}
           </div>
         )}
         
@@ -241,6 +263,43 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {/* Bottom shine effect on hover */}
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
+
+      {/* Website Preview Dialog */}
+      {hasLiveUrl && (
+        <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
+          <DialogContent className="max-w-[95vw] lg:max-w-6xl h-[90vh] p-0 flex flex-col">
+            <DialogHeader className="px-6 pt-6 pb-4 flex-shrink-0">
+              <DialogTitle className="text-xl font-bold text-white">
+                {project.title}
+              </DialogTitle>
+              <DialogDescription className="text-gray-400">
+                {project.subtitle}
+              </DialogDescription>
+            </DialogHeader>
+            <div className="relative flex-1 px-6 pb-6 min-h-0">
+              <iframe
+                src={project.liveUrl}
+                className="w-full h-full rounded-lg border border-white/10 bg-white"
+                title={`${project.title} preview`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+              <div className="absolute bottom-10 right-10">
+                <Link
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#ff6b35] to-[#f7931e] text-white rounded-lg font-medium hover:shadow-lg hover:shadow-orange-500/25 transition-shadow"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span>Open in New Tab</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </motion.div>
   );
 }

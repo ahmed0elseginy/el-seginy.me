@@ -45,22 +45,6 @@ export const projects: Project[] = [
     }
   },
   {
-    id: 3,
-    title: "User Management System",
-    subtitle: "Secure Access Control",
-    description: "Developed full CRUD RESTful endpoints following REST standards. Integrated a message publishing endpoint and followed OpenAPI specifications for API documentation.",
-    story: "Managing users taught me that every individual deserves secure and efficient access to digital services.",
-    tags: ["Java", "REST API", "OpenAPI", "CRUD", "Message Publishing"],
-    githubUrl: "https://github.com/ahmed0elseginy/user-mgt-antibug-team",
-    liveUrl: "#",
-    icon: "Shield",
-    category: "Backend",
-    preview: {
-      type: "image",
-      url: "https://picsum.photos/800/400?random=3" // Placeholder - replace with actual preview
-    }
-  },
-  {
     id: 4,
     title: "Toda - Task Manager",
     subtitle: "Clean Architecture Demo",
@@ -94,7 +78,7 @@ export const projects: Project[] = [
   },
   {
     id: 6,
-    title: "t-tech",
+    title: "T-Tech",
     subtitle: "Our services",
     description: "Comprehensive technology solutions tailored to your needs.",
     story: "T-Tech is a modern web application built to showcase and streamline tech services for clients.",
@@ -104,10 +88,27 @@ export const projects: Project[] = [
     icon: "Sparkles",
     category: "Frontend",
     preview: {
+      type: "image",
+      url: "/images/t-tech.png",
+    }
+  },
+  {
+    id: 7,
+    title: "Verdia",
+    subtitle: "Cultivating Tomorrow's Harvest",
+    description: "Empowering farmers with sustainable AI-driven solutions and advanced robotics to maximize yield and minimize environmental impact.",
+    story: "In the fields where tradition meets innovation, Verdia plants seeds of the future - where technology nurtures the earth and grows sustainable tomorrows.",
+    tags: ["Next.js", "TypeScript", "ShadCN", "AI", "Robotics", "Agriculture"],
+    githubUrl: "https://github.com/ahmed0elseginy/verdia",
+    liveUrl: "https://verdia-tau.vercel.app/",
+    icon: "Globe",
+    category: "Frontend",
+    preview: {
       type: "video",
-      url: "5192068-uhd_2160_4096_25fps.mp4", // Placeholder video - replace with actual preview
-      thumbnail: "https://picsum.photos/800/400?random=6" // Optional thumbnail for video
+      url: "/videos/verdia.webm",
+      thumbnail: "/images/verdia.png"
     }
   }
+
 ];
 
