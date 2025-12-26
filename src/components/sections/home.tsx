@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, Twitter, Send } from "lucide-react";
+import { Github, Linkedin, Twitter, Send, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionContainer } from "@/shared/components/section-container";
@@ -12,6 +12,7 @@ export function HomeSection() {
     { href: "https://linkedin.com/in/ahmed0elseginy", label: "LinkedIn", Icon: Linkedin },
     { href: "https://x.com/ahmed0elseginy", label: "X (Twitter)", Icon: Twitter },
     { href: "https://t.me/ahmed0elseginy", label: "Telegram", Icon: Send },
+    { href: "https://wa.me/201000432923", label: "WhatsApp", Icon: MessageCircle },
   ] as const;
    
   return (

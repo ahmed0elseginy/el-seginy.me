@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Linkedin, Mail, Heart, Code } from "lucide-react";
+import { Github, Linkedin, Twitter, Send, Code, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { THEME_GRADIENT } from "@/config/constants";
 
@@ -9,22 +9,12 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
   
   const socialLinks = [
-    {
-      href: "https://github.com/ahmed0elseginy",
-      label: "GitHub",
-      icon: Github,
-    },
-    {
-      href: "https://linkedin.com/in/ahmed0elseginy",
-      label: "LinkedIn", 
-      icon: Linkedin,
-    },
-    {
-      href: "mailto:ahmed0elseginy@gmail.com",
-      label: "Email",
-      icon: Mail,
-    }
-  ];
+    { href: "https://github.com/ahmed0elseginy", label: "GitHub", Icon: Github },
+    { href: "https://linkedin.com/in/ahmed0elseginy", label: "LinkedIn", Icon: Linkedin },
+    { href: "https://x.com/ahmed0elseginy", label: "X (Twitter)", Icon: Twitter },
+    { href: "https://t.me/ahmed0elseginy", label: "Telegram", Icon: Send },
+    { href: "https://wa.me/201000432923", label: "WhatsApp", Icon: MessageCircle },
+  ] as const;
 
   return (
     <footer className="relative w-full py-8 md:py-12 px-4 md:px-6 lg:px-8 border-t border-white/[0.08]">
@@ -71,30 +61,27 @@ export function Footer() {
           >
             {/* Social Links */}
             <div className="flex gap-3 md:gap-4">
-              {socialLinks.map((social, index) => {
-                const Icon = social.icon;
-                return (
-                  <motion.a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 0.1 * index }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="relative group"
-                    aria-label={social.label}
-                  >
-                    <div className={`absolute -inset-0.5 bg-gradient-to-r ${THEME_GRADIENT} rounded-full blur opacity-0 group-hover:opacity-30 transition-opacity duration-300`} />
-                    <div className="relative w-12 h-12 inline-flex items-center justify-center bg-white/[0.03] border border-white/[0.08] rounded-full text-gray-400 hover:text-white hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-200">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                  </motion.a>
-                );
-              })}
+              {socialLinks.map(({ href, label, Icon }, index) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: 0.1 * index }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative group"
+                >
+                  <div className={`absolute -inset-0.5 bg-gradient-to-r ${THEME_GRADIENT} rounded-full blur opacity-0 group-hover:opacity-30 transition-opacity duration-300`} />
+                  <div className="relative w-12 h-12 inline-flex items-center justify-center bg-white/[0.03] border border-white/[0.08] rounded-full text-gray-400 hover:text-white hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-300">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                </motion.a>
+              ))}
             </div>
 
             {/* Copyright */}

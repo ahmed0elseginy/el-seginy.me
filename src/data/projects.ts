@@ -31,7 +31,8 @@ export const projects: Project[] = [
   {
     id: 2,
     title: "Social Media Platform",
-    subtitle: "Zag Systems Backend",
+    subtitle: "Zag Systems",
+    subtitleLogo: "/images/campany/logo-min-min.png",
     description: "Designed and developed RESTful APIs with Java Spring Boot, applied Spring Security with ActiveMQ Artemis, and managed relational data using MySQL + Hibernate + Liquibase.",
     story: "Building connections between people taught me that APIs are like bridges between worlds.",
     tags: ["Java", "Spring Boot", "Spring Security", "ActiveMQ", "MySQL", "Hibernate", "Swagger"],

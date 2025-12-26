@@ -14,6 +14,40 @@ export const education: Education[] = [
     location: "Faculty of Industrial and Energy Technology",
     description: "Currently pursuing advanced coursework in software engineering and system design, focusing on scalable architecture and enterprise solutions.",
     achievements: ["ICT Student", "Software Engineering", "System Design"],
+    logo: "/images/education/NCTU.png",
+    status: "Current",
+    grade: "In Progress",
+    photos: [
+      // Add your university photos here when available
+      // "/images/education/nctu-photo-1.jpg",
+      // "/images/education/nctu-photo-2.jpg",
+    ],
+    certificates: [
+      // Add certificates here when available
+      // {
+      //   name: "Certificate Name",
+      //   issuer: "Issuer Name",
+      //   date: "2024",
+      //   credentialUrl: "https://...",
+      //   image: "/images/education/certificate-1.jpg",
+      // },
+    ],
+    volunteering: [
+      {
+        name: "Microsoft Student Community (MSC)",
+        role: "Vice Backend Ambassador",
+        date: "2024 - Present",
+        description: "Leading backend development initiatives, mentoring students in Java and Spring Boot, organizing technical workshops.",
+        logo: "/images/education/msc-logo.png",
+      },
+      {
+        name: "Google Developer Groups (GDG)",
+        role: "Organizer",
+        date: "2024 - Present",
+        description: "Organizing tech events, workshops, and hackathons. Building developer community and promoting Google technologies.",
+        logo: "/images/education/gdg-logo.png",
+      },
+    ],
   },
   {
     date: "Oct 2020 - Jun 2024",
@@ -22,6 +56,31 @@ export const education: Education[] = [
     location: "Computer Science Track",
     description: "Mastered Java programming fundamentals with distinction, explored Oracle Database development and PL/SQL programming, and participated in coding competitions.",
     achievements: ["Java Foundation", "Oracle Database", "High Distinction"],
+    logo: "/images/education/MICA.jpeg",
+    status: "Completed",
+    grade: "95.67%",
+    photos: [
+      // Add your school photos here when available
+      // "/images/education/mica-photo-1.jpg",
+      // "/images/education/mica-photo-2.jpg",
+    ],
+    certificates: [
+      {
+        name: "Java Foundation",
+        issuer: "Oracle",
+        date: "2023",
+        // credentialUrl: "https://...",
+        // image: "/images/education/java-certificate.jpg",
+      },
+      {
+        name: "Oracle Database Development",
+        issuer: "Oracle",
+        date: "2023",
+        // credentialUrl: "https://...",
+        // image: "/images/education/oracle-certificate.jpg",
+      },
+    ],
+    volunteering: [],
   },
 ];
 

@@ -1,133 +1,284 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { education, educationIcons } from "@/data/education";
+import { education } from "@/data/education";
 import { SectionContainer } from "@/shared/components/section-container";
 import { SectionHeader } from "@/shared/components/section-header";
-import { getIconComponent } from "@/shared/utils/icon-resolver";
 import { THEME_GRADIENT } from "@/config/constants";
+import { 
+  GraduationCap, 
+  Calendar, 
+  MapPin, 
+  Award, 
+  Users, 
+  ChevronDown,
+  ExternalLink,
+  ImageIcon
+} from "lucide-react";
 
 export function EducationSection() {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+
   return (
     <SectionContainer id="education" spacing="mobile">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <SectionHeader
           title="Education"
-          description="My educational journey in technology and software development, building a strong foundation for my career."
+          description="Academic foundation and community involvement"
           className="mb-12"
         />
 
-        {/* Education Timeline */}
-        <div className="space-y-8">
+        <div className="space-y-4">
           {education.map((edu, index) => {
-            // Use first icon for now, can be extended later
-            const IconComponent = educationIcons.GraduationCap;
-            const status = index === 0 ? "Current" : "Completed";
-            const grade = index === 0 ? "In Progress" : "95.67%";
-            
+            const isExpanded = expandedIndex === index;
+            const hasExtras = (edu.photos && edu.photos.length > 0) || 
+                             (edu.certificates && edu.certificates.length > 0) || 
+                             (edu.volunteering && edu.volunteering.length > 0);
+
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-                viewport={{ once: true, margin: "-50px" }}
-                className="relative group"
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group"
               >
-                {/* Animated glow effect */}
-                <div className={`absolute -inset-0.5 bg-gradient-to-r ${THEME_GRADIENT} rounded-2xl blur-lg opacity-0 group-hover:opacity-40 transition-all duration-500`} />
-                
-                <div className="relative bg-gradient-to-br from-[#0d0d0d] via-[#111111] to-[#0a0a0a] rounded-2xl border border-white/[0.08] overflow-hidden">
-                  {/* Top gradient accent bar */}
-                  <div className={`h-1 w-full bg-gradient-to-r ${THEME_GRADIENT}`} />
-                  
-                  <div className="p-6 space-y-5">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-4">
-                        <motion.div 
-                          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${THEME_GRADIENT} p-[1px] shadow-lg`}
-                          whileHover={{ scale: 1.1, rotate: 5 }}
-                          transition={{ type: "spring", stiffness: 400 }}
-                        >
-                          <div className="w-full h-full bg-[#0d0d0d] rounded-[11px] flex items-center justify-center">
-                            <IconComponent className="w-5 h-5 text-white" />
+                {/* Main Card */}
+                <div 
+                  className={`relative bg-[#0d0d0d]/80 rounded-xl border transition-all duration-300 overflow-hidden ${
+                    isExpanded ? "border-white/[0.12]" : "border-white/[0.06] hover:border-white/[0.1]"
+                  }`}
+                >
+                  {/* Header - Always Visible */}
+                  <div 
+                    className="p-5 cursor-pointer"
+                    onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                  >
+                    <div className="flex items-start gap-4">
+                      {/* Logo */}
+                      <div className="flex-shrink-0">
+                        {edu.logo ? (
+                          <div className="w-14 h-14 rounded-lg overflow-hidden bg-white/[0.05] border border-white/[0.08] flex items-center justify-center">
+                            <Image
+                              src={edu.logo}
+                              alt={edu.institution}
+                              width={56}
+                              height={56}
+                              className="object-contain p-1.5"
+                            />
                           </div>
-                        </motion.div>
-                        <div>
-                          <Badge 
-                            className={`text-xs font-semibold tracking-wide uppercase px-2.5 py-1 ${
-                              status === "Current" 
-                                ? "bg-gradient-to-r from-[#ff6b35] to-[#f7931e] text-white border-0" 
-                                : "bg-white/[0.03] border border-white/[0.08] text-gray-400"
-                            }`}
-                          >
-                            {status}
-                          </Badge>
-                          <p className="text-sm text-gray-500 mt-1.5">{edu.date}</p>
+                        ) : (
+                          <div className={`w-14 h-14 rounded-lg bg-gradient-to-br ${THEME_GRADIENT} flex items-center justify-center`}>
+                            <GraduationCap className="w-6 h-6 text-white" />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <h3 className="text-base font-semibold text-white">
+                                {edu.degree}
+                              </h3>
+                              {edu.status === "Current" && (
+                                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                              )}
+                            </div>
+                            <p className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#ff6b35] to-[#4ecdc4] mb-2">
+                              {edu.institution}
+                            </p>
+                            <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
+                              <div className="flex items-center gap-1">
+                                <Calendar className="w-3 h-3" />
+                                <span>{edu.date}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <MapPin className="w-3 h-3" />
+                                <span>{edu.location}</span>
+                              </div>
+                              {edu.grade && (
+                                <Badge className="text-[10px] font-medium bg-white/[0.03] border border-white/[0.08] text-gray-400 px-1.5 py-0">
+                                  {edu.grade}
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Expand Button */}
+                          {hasExtras && (
+                            <motion.button
+                              animate={{ rotate: isExpanded ? 180 : 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="p-1.5 rounded-lg bg-white/[0.03] border border-white/[0.06] text-gray-500 hover:text-white hover:border-white/[0.12] transition-colors"
+                            >
+                              <ChevronDown className="w-4 h-4" />
+                            </motion.button>
+                          )}
                         </div>
                       </div>
-                      <p className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#ff6b35] via-[#4ecdc4] to-[#45b7d1]">{grade}</p>
-                    </div>
-                    
-                    <div className="space-y-1.5">
-                      <h3 className="text-xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">
-                        {edu.degree}
-                      </h3>
-                      <p className="text-base font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#ff6b35] via-[#4ecdc4] to-[#45b7d1]">
-                        {edu.institution}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        {edu.location}
-                      </p>
                     </div>
 
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      {edu.description}
-                    </p>
+                    {/* Description - Always visible */}
+                    {edu.description && (
+                      <p className="text-sm text-gray-400 mt-4 leading-relaxed">
+                        {edu.description}
+                      </p>
+                    )}
 
                     {/* Achievements */}
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${THEME_GRADIENT}`} />
-                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Key Achievements</span>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5">
+                    {edu.achievements && edu.achievements.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mt-3">
                         {edu.achievements.map((achievement, i) => (
-                          <motion.span
+                          <span
                             key={i}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: index * 0.1 + i * 0.05 }}
-                            viewport={{ once: true }}
-                            className="px-2.5 py-1 text-[10px] font-medium text-gray-400 bg-white/[0.03] border border-white/[0.06] rounded-md hover:bg-white/[0.08] hover:border-white/[0.12] hover:text-gray-300 transition-all duration-200 cursor-default"
+                            className="px-2 py-0.5 text-[10px] font-medium text-gray-400 bg-white/[0.02] border border-white/[0.05] rounded-md"
                           >
                             {achievement}
-                          </motion.span>
+                          </span>
                         ))}
                       </div>
-                    </div>
+                    )}
                   </div>
+
+                  {/* Expanded Content */}
+                  <AnimatePresence>
+                    {isExpanded && hasExtras && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 pb-5 pt-2 space-y-5 border-t border-white/[0.04]">
+                          {/* Volunteering & Clubs */}
+                          {edu.volunteering && edu.volunteering.length > 0 && (
+                            <div className="space-y-3">
+                              <div className="flex items-center gap-2 text-xs font-medium text-gray-500">
+                                <Users className="w-3.5 h-3.5" />
+                                <span>Clubs & Activities</span>
+                              </div>
+                              <div className="grid gap-2">
+                                {edu.volunteering.map((vol, i) => (
+                                  <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: i * 0.1 }}
+                                    className="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors"
+                                  >
+                                    {vol.logo ? (
+                                      <div className="w-10 h-10 rounded-md overflow-hidden bg-white/[0.05] border border-white/[0.06] flex items-center justify-center flex-shrink-0">
+                                        <Image
+                                          src={vol.logo}
+                                          alt={vol.name}
+                                          width={40}
+                                          height={40}
+                                          className="object-contain p-1"
+                                        />
+                                      </div>
+                                    ) : (
+                                      <div className={`w-10 h-10 rounded-md bg-gradient-to-br ${THEME_GRADIENT} flex items-center justify-center flex-shrink-0`}>
+                                        <Users className="w-4 h-4 text-white" />
+                                      </div>
+                                    )}
+                                    <div className="flex-1 min-w-0">
+                                      <div className="flex items-center gap-2">
+                                        <span className="text-sm font-medium text-white">{vol.role}</span>
+                                        <span className="text-xs text-gray-500">•</span>
+                                        <span className="text-xs text-gray-500">{vol.date}</span>
+                                      </div>
+                                      <p className="text-xs text-transparent bg-clip-text bg-gradient-to-r from-[#ff6b35] to-[#4ecdc4]">
+                                        {vol.name}
+                                      </p>
+                                    </div>
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Certificates */}
+                          {edu.certificates && edu.certificates.length > 0 && (
+                            <div className="space-y-3">
+                              <div className="flex items-center gap-2 text-xs font-medium text-gray-500">
+                                <Award className="w-3.5 h-3.5" />
+                                <span>Certificates</span>
+                              </div>
+                              <div className="flex flex-wrap gap-2">
+                                {edu.certificates.map((cert, i) => (
+                                  <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: i * 0.05 }}
+                                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors"
+                                  >
+                                    <Award className="w-4 h-4 text-[#ff6b35]" />
+                                    <div>
+                                      <p className="text-xs font-medium text-white">{cert.name}</p>
+                                      <p className="text-[10px] text-gray-500">{cert.issuer} • {cert.date}</p>
+                                    </div>
+                                    {cert.credentialUrl && (
+                                      <a
+                                        href={cert.credentialUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="ml-auto text-gray-500 hover:text-white transition-colors"
+                                        onClick={(e) => e.stopPropagation()}
+                                      >
+                                        <ExternalLink className="w-3 h-3" />
+                                      </a>
+                                    )}
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Photos Gallery */}
+                          {edu.photos && edu.photos.length > 0 && (
+                            <div className="space-y-3">
+                              <div className="flex items-center gap-2 text-xs font-medium text-gray-500">
+                                <ImageIcon className="w-3.5 h-3.5" />
+                                <span>Memories</span>
+                              </div>
+                              <div className="grid grid-cols-3 gap-2">
+                                {edu.photos.map((photo, i) => (
+                                  <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: i * 0.05 }}
+                                    className="relative aspect-video rounded-lg overflow-hidden bg-white/[0.03] border border-white/[0.04] cursor-pointer hover:border-white/[0.1] transition-colors"
+                                  >
+                                    <Image
+                                      src={photo}
+                                      alt={`${edu.institution} photo ${i + 1}`}
+                                      fill
+                                      className="object-cover hover:scale-105 transition-transform duration-300"
+                                    />
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </motion.div>
             );
           })}
         </div>
-
-        {/* Call to Action */}
-        <motion.div 
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-gray-500 text-lg italic max-w-xl mx-auto">
-            "Continuous learning is the key to staying relevant in the ever-evolving world of technology."
-          </p>
-        </motion.div>
       </div>
     </SectionContainer>
   );
 }
-

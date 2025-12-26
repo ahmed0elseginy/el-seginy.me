@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Github, Sparkles, ArrowUpRight, ExternalLink } from "lucide-react";
@@ -168,9 +169,21 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <h3 className="text-xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">
               {project.title}
             </h3>
-            <p className="text-sm text-gray-500 font-medium">
-              {project.subtitle}
-            </p>
+            {project.subtitleLogo ? (
+              <div className="h-5">
+                <Image
+                  src={project.subtitleLogo}
+                  alt={project.subtitle}
+                  width={100}
+                  height={20}
+                  className="object-contain object-left h-5 w-auto"
+                />
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500 font-medium">
+                {project.subtitle}
+              </p>
+            )}
           </div>
 
           {/* Description */}

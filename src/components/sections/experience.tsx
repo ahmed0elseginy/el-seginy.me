@@ -1,131 +1,164 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { experiences, experienceIcons } from "@/data/experience";
 import { SectionContainer } from "@/shared/components/section-container";
 import { SectionHeader } from "@/shared/components/section-header";
 import { getIconComponent } from "@/shared/utils/icon-resolver";
 import { THEME_GRADIENT } from "@/config/constants";
+import { MapPin, Briefcase } from "lucide-react";
 
 export function ExperienceSection() {
   return (
     <SectionContainer id="experience" spacing="mobile">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <SectionHeader
-          title="Professional Experience"
-          description="My professional journey in software development, showcasing growth through internships, mentorship, and hands-on learning experiences."
+          title="Experience"
+          description="My journey in software development"
           className="mb-12"
         />
 
-        {/* Experience Timeline */}
-        <div className="space-y-8">
-          {experiences.map((exp, index) => {
-            const IconComponent = getIconComponent(exp.icon, experienceIcons);
-            if (!IconComponent) return null;
-            
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-                viewport={{ once: true, margin: "-50px" }}
-                className="relative group"
-              >
-                {/* Animated glow effect */}
-                <div className={`absolute -inset-0.5 bg-gradient-to-r ${THEME_GRADIENT} rounded-2xl blur-lg opacity-0 group-hover:opacity-40 transition-all duration-500`} />
-                
-                <div className="relative bg-gradient-to-br from-[#0d0d0d] via-[#111111] to-[#0a0a0a] rounded-2xl border border-white/[0.08] overflow-hidden">
-                  {/* Top gradient accent bar */}
-                  <div className={`h-1 w-full bg-gradient-to-r ${THEME_GRADIENT}`} />
-                  
-                  <div className="p-6 space-y-5">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-4">
-                        <motion.div 
-                          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${THEME_GRADIENT} p-[1px] shadow-lg`}
-                          whileHover={{ scale: 1.1, rotate: 5 }}
-                          transition={{ type: "spring", stiffness: 400 }}
-                        >
-                          <div className="w-full h-full bg-[#0d0d0d] rounded-[11px] flex items-center justify-center">
-                            <IconComponent className="w-5 h-5 text-white" />
+        {/* Career Path Timeline */}
+        <div className="relative">
+          {/* Vertical Timeline Line */}
+          <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-[#ff6b35] via-[#4ecdc4] to-[#45b7d1] opacity-20" />
+
+          <div className="space-y-0">
+            {experiences.map((exp, index) => {
+              const IconComponent = getIconComponent(exp.icon, experienceIcons);
+              const isLast = index === experiences.length - 1;
+              
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  className="relative pl-16 pb-8"
+                >
+                  {/* Timeline Node */}
+                  <div className="absolute left-0 top-1">
+                    <motion.div 
+                      className={`relative w-12 h-12 rounded-full bg-gradient-to-br ${THEME_GRADIENT} p-[2px]`}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      <div className="w-full h-full rounded-full bg-[#0a0a0a] flex items-center justify-center overflow-hidden">
+                        {exp.logo ? (
+                          <Image
+                            src={exp.logo}
+                            alt={exp.company}
+                            width={32}
+                            height={32}
+                            className="object-contain"
+                          />
+                        ) : IconComponent ? (
+                          <IconComponent className="w-5 h-5 text-white" />
+                        ) : (
+                          <Briefcase className="w-5 h-5 text-white" />
+                        )}
+                      </div>
+                    </motion.div>
+                    
+                    {/* Connecting Line to Next */}
+                    {!isLast && (
+                      <div className="absolute left-1/2 top-12 w-px h-[calc(100%-12px)] -translate-x-1/2 bg-gradient-to-b from-white/20 to-transparent" />
+                    )}
+                  </div>
+
+                  {/* Content Card */}
+                  <div className="group">
+                    <div className="relative bg-[#0d0d0d]/80 rounded-xl border border-white/[0.06] p-5 hover:border-white/[0.12] transition-all duration-300 hover:bg-[#111111]/80">
+                      {/* Header */}
+                      <div className="flex items-start justify-between gap-4 mb-3">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-lg font-semibold text-white">
+                              {exp.title}
+                            </h3>
+                            {exp.status === "Current" && (
+                              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                            )}
                           </div>
-                        </motion.div>
-                        <div>
-                          <Badge 
-                            className={`text-xs font-semibold tracking-wide uppercase px-2.5 py-1 ${
-                              exp.status === "Current" 
-                                ? "bg-gradient-to-r from-[#ff6b35] to-[#f7931e] text-white border-0" 
-                                : "bg-white/[0.03] border border-white/[0.08] text-gray-400"
-                            }`}
-                          >
-                            {exp.status}
-                          </Badge>
-                          <p className="text-sm text-gray-500 mt-1.5">{exp.date}</p>
+                          {exp.companyLogo ? (
+                            <div className="h-6 mt-0.5">
+                              <Image
+                                src={exp.companyLogo}
+                                alt={exp.company}
+                                width={120}
+                                height={24}
+                                className="object-contain object-left h-6 w-auto"
+                              />
+                            </div>
+                          ) : (
+                            <p className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#ff6b35] to-[#4ecdc4]">
+                              {exp.company}
+                            </p>
+                          )}
+                        </div>
+                        <Badge 
+                          className={`text-[10px] font-medium px-2 py-0.5 ${
+                            exp.status === "Current" 
+                              ? "bg-gradient-to-r from-[#ff6b35]/20 to-[#f7931e]/20 text-[#ff6b35] border border-[#ff6b35]/30" 
+                              : "bg-white/[0.03] border border-white/[0.08] text-gray-500"
+                          }`}
+                        >
+                          {exp.type}
+                        </Badge>
+                      </div>
+
+                      {/* Meta */}
+                      <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
+                        <span>{exp.date}</span>
+                        <div className="flex items-center gap-1">
+                          <MapPin className="w-3 h-3" />
+                          <span>{exp.location}</span>
                         </div>
                       </div>
-                      <Badge className="text-xs font-medium bg-white/[0.03] border border-white/[0.08] text-gray-400 px-2.5 py-1">
-                        {exp.type}
-                      </Badge>
-                    </div>
-                    
-                    <div className="space-y-1.5">
-                      <h3 className="text-xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">
-                        {exp.title}
-                      </h3>
-                      <p className="text-base font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#ff6b35] via-[#4ecdc4] to-[#45b7d1]">
-                        {exp.company}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        {exp.location}
-                      </p>
-                    </div>
 
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      {exp.description}
-                    </p>
+                      {/* Description */}
+                      <p className="text-sm text-gray-400 leading-relaxed mb-4">
+                        {exp.description}
+                      </p>
 
-                    {/* Achievements */}
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${THEME_GRADIENT}`} />
-                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Key Achievements</span>
-                      </div>
+                      {/* Project Image */}
+                      {exp.image && (
+                        <div className="relative w-full h-40 rounded-lg overflow-hidden mb-4 border border-white/[0.06]">
+                          <Image
+                            src={exp.image}
+                            alt={`${exp.title} work`}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
+
+                      {/* Skills/Achievements */}
                       <div className="flex flex-wrap gap-1.5">
                         {exp.achievements.map((achievement, i) => (
-                          <motion.span
+                          <span
                             key={i}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: index * 0.1 + i * 0.05 }}
-                            viewport={{ once: true }}
-                            className="px-2.5 py-1 text-[10px] font-medium text-gray-400 bg-white/[0.03] border border-white/[0.06] rounded-md hover:bg-white/[0.08] hover:border-white/[0.12] hover:text-gray-300 transition-all duration-200 cursor-default"
+                            className="px-2 py-0.5 text-[10px] font-medium text-gray-400 bg-white/[0.02] border border-white/[0.05] rounded-md"
                           >
                             {achievement}
-                          </motion.span>
+                          </span>
                         ))}
                       </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+                </motion.div>
+              );
+            })}
+          </div>
 
-        {/* Call to Action */}
-        <motion.div 
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-gray-500 text-lg italic max-w-xl mx-auto">
-            "Every experience is a stepping stone towards becoming a better developer and building meaningful solutions."
-          </p>
-        </motion.div>
+          {/* Path End Indicator */}
+          <div className="absolute left-6 bottom-0 -translate-x-1/2">
+            <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${THEME_GRADIENT} opacity-50`} />
+          </div>
+        </div>
       </div>
     </SectionContainer>
   );

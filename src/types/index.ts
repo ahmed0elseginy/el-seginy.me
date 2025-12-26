@@ -6,6 +6,7 @@ export interface Project {
   id: number;
   title: string;
   subtitle: string;
+  subtitleLogo?: string; // Company/brand logo to display instead of subtitle text
   description: string;
   story: string;
   tags: string[];
@@ -41,6 +42,26 @@ export interface Experience {
   achievements: string[];
   type: string;
   icon: string; // Icon name from lucide-react
+  logo?: string; // Company logo/icon for timeline node
+  companyLogo?: string; // Full company logo with name (replaces text)
+  image?: string; // Project/work image
+  path?: string; // Career path identifier (e.g., "backend", "fullstack")
+}
+
+export interface Certificate {
+  name: string;
+  issuer: string;
+  date: string;
+  credentialUrl?: string;
+  image?: string;
+}
+
+export interface VolunteeringClub {
+  name: string;
+  role: string;
+  date: string;
+  description?: string;
+  logo?: string;
 }
 
 export interface Education {
@@ -50,6 +71,12 @@ export interface Education {
   location: string;
   description?: string;
   achievements?: string[];
+  logo?: string; // Institution logo path
+  photos?: string[]; // Photos from university/school
+  certificates?: Certificate[];
+  volunteering?: VolunteeringClub[];
+  grade?: string;
+  status?: "Current" | "Completed";
 }
 
 export interface AboutSkill {
