@@ -162,7 +162,7 @@ export function ContactSection() {
                     <div>
                       <h3 className="text-xl font-bold text-white">Send a Message</h3>
                       <p className="text-sm text-gray-500">
-                        Fill out the form below and I'll get back to you as soon as possible
+                        Fill out the form and I'll get back to you
                       </p>
                     </div>
                   </div>

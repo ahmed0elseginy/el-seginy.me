@@ -46,39 +46,40 @@ export const projects: Project[] = [
     }
   },
   {
-    id: 4,
-    title: "Toda - Task Manager",
-    subtitle: "Clean Architecture Demo",
-    description: "Implemented essential CRUD operations with a focus on maintainability and code readability. Prioritized clean architecture and modular code for demonstration and testing purposes.",
-    story: "Like the Little Prince tending to his rose, I tended to each line of code with care and attention.",
-    tags: ["Java", "CRUD", "Clean Architecture", "Modular Design"],
-    githubUrl: "https://github.com/ahmed0elseginy/toda-backend",
+    id: 3,
+    title: "Z-Pharma Inventory System",
+    subtitle: "Zag Systems",
+    subtitleLogo: "/images/campany/logo-min-min.png",
+    description: "Designed and developed core modules of a pharmaceutical inventory management system based on Microservices Architecture — including Pharmacy Management, Complaint Handling, Notification System, and User Management.",
+    story: "In the world of microservices, I learned that orchestration is an art — where each service dances to its own rhythm, yet moves in perfect harmony with the whole.",
+    tags: ["Java", "Spring Boot", "Spring Cloud", "Microservices", "DDD", "Workflow Engine", "Message Queue", "Liquibase", "Caching"],
+    githubUrl: "#",
     liveUrl: "#",
-    icon: "Code",
+    icon: "Globe",
     category: "Backend",
     preview: {
       type: "image",
-      url: "https://picsum.photos/800/400?random=4" // Placeholder - replace with actual preview
+      url: "/images/projects/z-pharma/image.png"
+    }
+  },
+  {
+    id: 4,
+    title: "Mizan Legal System",
+    subtitle: "Legal Management System",
+    description: "A comprehensive legal management system built as a monorepo with Java Spring Boot backend, Next.js web application, and Flutter mobile app. Features document management, case tracking, client management, secure authentication with role-based access control, and real-time updates across platforms. Organized as Git submodules for scalable microservices architecture.",
+    story: "In the realm of law and code, I discovered that justice needs structure — where every document, case, and client finds its place in a system built on trust and precision.",
+    tags: ["Java", "Spring Boot", "Next.js", "TypeScript", "MySQL", "Hibernate", "Authentication", "Real-time"],
+    githubUrl: "https://github.com/ahmed0elseginy/sgp-legal",
+    liveUrl: "#",
+    icon: "Shield",
+    category: "Full Stack",
+    preview: {
+      type: "image",
+      url: "/images/projects/mizan/mizan.png" // Placeholder - replace with actual preview
     }
   },
   {
     id: 5,
-    title: "Amazon-El8alaba",
-    subtitle: "Shopping Experience",
-    description: "Built CRUD functionalities using Spring Boot, MySQL, and Thymeleaf for a dynamic web interface. Focused on creating a seamless shopping experience.",
-    story: "Commerce flows like a river - it needs clear channels and secure foundations to reach its destination.",
-    tags: ["Spring Boot", "MySQL", "Thymeleaf", "CRUD", "Web Interface"],
-    githubUrl: "https://github.com/ahmed0elseginy/Amazon-El8alaba",
-    liveUrl: "#",
-    icon: "Zap",
-    category: "Full Stack",
-    preview: {
-      type: "image",
-      url: "https://picsum.photos/800/400?random=5" // Placeholder - replace with actual preview
-    }
-  },
-  {
-    id: 6,
     title: "T-Tech",
     subtitle: "Our services",
     description: "Comprehensive technology solutions tailored to your needs.",
@@ -94,7 +95,7 @@ export const projects: Project[] = [
     }
   },
   {
-    id: 7,
+    id: 6,
     title: "Verdia",
     subtitle: "Cultivating Tomorrow's Harvest",
     description: "Empowering farmers with sustainable AI-driven solutions and advanced robotics to maximize yield and minimize environmental impact.",
